@@ -8,7 +8,6 @@
 
 import os
 from config.dev import DevConfig
-from config.prodXAUT import ProdConfigXAUT
 
 class Config(object):
     def __init__(self, env: str, main_tmp_path: str, dataset: str) -> None:
@@ -23,9 +22,6 @@ class Config(object):
         # 开发环境
         if env == "dev":
             self._config = DevConfig(main_tmp_path, dataset)
-        # 西理环境
-        #elif env == "prod_xaut":
-         #   self._config = ProdConfigXAUT(main_tmp_path, dataset, sample_way, dim, model, ablation_strategy)
 
         self.main_tmp_path = main_tmp_path
         self.mkdir()
@@ -57,5 +53,4 @@ class Config(object):
             fix_path = self._config.FIXED_LENGTH["file_path"]
             if not os.path.exists(fix_path):
                 os.makedirs(fix_path)
-            
             
