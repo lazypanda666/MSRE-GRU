@@ -49,3 +49,13 @@ class Config(object):
             window_path = self._config.WINDOW["file_path"]
             if not os.path.exists(window_path):
                 os.makedirs(window_path)
+
+            anonymous_path = self._config.ANONYMOUS["file_path"]
+            if not os.path.exists(anonymous_path):
+                os.makedirs(anonymous_path)
+
+            fix_path = self._config.FIXED_LENGTH["file_path"]
+            if not os.path.exists(fix_path):
+                os.makedirs(fix_path)
+            
+            

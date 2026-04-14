@@ -56,6 +56,17 @@ class DevConfig(object):
             "file_path": tmp_path + "/window/",
         }
 
+        self.ANONYMOUS = {
+            # 相关文件保存路径
+            "file_path": tmp_path + "/anonymous/",
+        }
+
+        self.FIXED_LENGTH = {
+            "n": 1518 * 8,
+            # 相关文件保存路径
+            "file_path": tmp_path + "/fix/",
+        }
+
         if dataset == "USTC-TFC2016":
             # 数据集配置
             self.DATASET = {
