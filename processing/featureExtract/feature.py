@@ -400,7 +400,7 @@ def extractPcapPktsFeature(input_dir: str = cfg.ANONYMOUS["file_path"],
             continue
 
         # 分割文件名
-        way, sampled_val, label = name.split("_")
+        sampled_val, label = name.split("_")
         # 仅处理采样数据
         if sampled_val != "sampled":
             continue
