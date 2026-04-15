@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+# coding=utf-8
+"""
+@Description   雷尼熵的窗口分布状态
+@Author        lazypanda666
+@Date          2026-04-15 18:11:45
+"""
+
+import os
+import numpy as np
+import torch
+import torch.nn as nn
+
+from const import cfg
+from utils.log import logger
+from utils.wrapper import calTimes
+
+
+# 分布状态编码器 φ
+class EntropyEncoder(nn.Module):
+    def __init__(self, input_dim: int, output_dim: int):
+        super().__init__()
+
+        self.linear = nn.Linear(input_dim, output_dim)
+        self.act = nn.ReLU()   # φ
+
+    def forward(self, x):
+        return self.act(self.linear(x))
+
+
+# 主函数：仅构建 e(t)
+@calTimes(logger, "窗口分布状态向量 e(t) 构建完成")
+def buildEntropyStateVector(
+    input_dir: str = cfg.ENTROPY["file_path"],
+    output_dir: str = cfg.ENTROPY["file_path"]
+):
+    """
+    输入：xxx_entropy.csv
+    输出：xxx_e.npy（仅 e(t)）
+    """
+
+    # 参数
+    m = cfg.DISTRIBUTION["feature_dim"]       
+    K = len(cfg.ENTROPY["alphas"])        
+    input_dim = m * K                   
+    d_e = cfg.DISTRIBUTION["entropy_embed_dim"]  
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    encoder = EntropyEncoder(input_dim, d_e).to(device)
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    for filename in os.listdir(input_dir):
+
+        if not filename.endswith("_entropy.csv"):
+            continue
+
+        print(f"正在处理 {filename}")
+
+        path = os.path.join(input_dir, filename)
+
+        data = np.loadtxt(path, delimiter=",", skiprows=1)
+
+        # 提取 Rényi 部分
+        # z = [x(117), H(390)]
+        H_part = data[:, 117:]   # shape: [T, 390]
+
+        H_tensor = torch.tensor(H_part, dtype=torch.float32).to(device)
+
+        # 计算 e(t)
+        e = encoder(H_tensor)   # [T, d_e]
+
+        # 保存
+        save_path = os.path.join(
+            output_dir,
+            filename.replace("_entropy.csv", "_e.npy")
+        )
+
+        np.save(save_path, e.detach().cpu().numpy())
