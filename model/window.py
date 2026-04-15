@@ -31,6 +31,7 @@ def feature_encode(pkt: dict) -> np.ndarray:
 
 # ψ_x（窗口编码）
 def psi_x(W: np.ndarray) -> np.ndarray:
+
     mean = np.mean(W, axis=0)
     std = np.std(W, axis=0)
     max_val = np.max(W, axis=0)
@@ -41,12 +42,23 @@ def psi_x(W: np.ndarray) -> np.ndarray:
 @calTimes(logger, "窗口构建与特征编码完成")
 def extractWindowFeatures(
     input_dir: str = cfg.FIXED_LENGTH["file_path"],
-    l2_mode: str = cfg.EXTRACT["l2_mode"],
-    output_dir: str = cfg.WINDOW["file_path"],
+    l2_mode: str = cfg.WINDOW["l2_mode"],
     window_size: int = cfg.WINDOW["window_size"],
     step_size: int = cfg.WINDOW["step_size"],
-    encoder: Callable = psi_x
+    encoder: Callable = psi_x,
+    output_dir: str = cfg.WINDOW["file_path"]
 ) -> None:
+    
+    """
+    @description 网络流量的窗口化
+    @param {str} input_dir 输入文件路径
+    @param {str} l2_mode 链路层解析模式
+    @param {int} window_size 窗口大小
+    @param {int} step_size 滑动步长
+    @param {Callable} encoder 编码器 
+    @param {str} output_dir 输出文件路径
+    @return {None}
+    """
 
     print(f"窗口大小 w={window_size}, 滑动步长 s={step_size}")
 
