@@ -54,3 +54,6 @@ class Config(object):
             if not os.path.exists(fix_path):
                 os.makedirs(fix_path)
             
+            extract_path = self._config.EXTRACT["file_path"]
+            if not os.path.exists(extract_path):
+                os.makedirs(extract_path)

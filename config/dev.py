@@ -52,6 +52,10 @@ class DevConfig(object):
         }
 
         self.WINDOW = {
+            # 窗口大小
+            "window_size": 32,
+            # 滑动步长
+            "step_size": 8,
             # 相关文件保存路径
             "file_path": tmp_path + "/window/",
         }
@@ -66,6 +70,12 @@ class DevConfig(object):
             # 相关文件保存路径
             "file_path": tmp_path + "/fix/",
         }
+
+        self.EXTRACT = {
+            "l2_mode": "ethernet",
+            "file_path": tmp_path + "/extract",
+        }
+
 
         if dataset == "USTC-TFC2016":
             # 数据集配置

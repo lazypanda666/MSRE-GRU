@@ -35,9 +35,9 @@ env = "dev"
 
 # ============ 数据集配置 ============
 # USTC-TFC2016数据集
-dataset = "USTC-TFC2016"
+# dataset = "USTC-TFC2016"
 # UNSW-NB15数据集
-# dataset = "UNSW-NB15"
+dataset = "UNSW-NB15"
 
 
 cfg = Config(env, main_tmp_path, dataset).config
