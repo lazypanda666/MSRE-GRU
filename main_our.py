@@ -8,19 +8,24 @@
 
 import sample.sampling as sample
 import processing.dataProcessing as processing
+import model.window as window
 
 from const import cfg
 
 if __name__ == "__main__":
-    print("--------------------------------------------")
-    print(f"正在采样 {cfg.DATASET['name']} 数据集")
-    sample.sample()
-    print("--------------------------------------------")
+    # print("--------------------------------------------")
+    # print(f"正在采样 {cfg.DATASET['name']} 数据集")
+    # sample.sample()
+    # print("--------------------------------------------")
 
-    print(f"正在匿名化")
-    processing.anonymizePcap()
-    print("--------------------------------------------")
+    # print(f"正在匿名化")
+    # processing.anonymizePcap()
+    # print("--------------------------------------------")
     
-    print(f"正在定长化")
-    processing.truncatePcapPackets()
+    # print(f"正在定长化")
+    # processing.truncatePcapPackets()
+    # print("--------------------------------------------")
+
+    print(f"正在窗口化")
+    window.extractWindowFeatures()
     print("--------------------------------------------")
