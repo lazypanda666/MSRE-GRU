@@ -52,6 +52,7 @@ class DevConfig(object):
         }
 
         self.WINDOW = {
+            "l2_mode": "ethernet",
             # 窗口大小
             "window_size": 32,
             # 滑动步长
@@ -71,11 +72,42 @@ class DevConfig(object):
             "file_path": tmp_path + "/fix/",
         }
 
-        self.EXTRACT = {
-            "l2_mode": "ethernet",
-            "file_path": tmp_path + "/extract",
+        self.ENTROPY = {
+            "alphas": [1,2,3,4,5,6,7,8,9,10],
+            "num_bins": 10,
+            "alpha_weighting": True,
+            # 相关文件保存路径
+            "file_path": tmp_path + "/entropy/",
         }
 
+        self.DISTRIBUTION = {
+            "feature_dim": 39,
+            "entropy_embed_dim": 64,
+            # 相关文件保存路径
+            "file_path": tmp_path + "/distribution/",
+        }
+
+        self.DATA = {
+            # 相关文件保存路径
+            "file_path": tmp_path + "/dataset/",
+        }
+
+        self.EVALUATE = {
+            # 结果小数位数
+            "decimal_places": 2,
+            # 相关文件保存路径
+            "file_path": tmp_path + "/evaluate/",
+        }
+
+        self.MODEL = {
+            "batch_size": 64,
+            "epochs": 30,
+            "lr": 1e-3,
+            "seq_len": 10,   # 时间窗口长度 T
+            "hidden_dim": 128,
+            # 相关文件保存路径
+            "file_path": tmp_path + "/model/",
+        }
 
         if dataset == "USTC-TFC2016":
             # 数据集配置

@@ -54,6 +54,22 @@ class Config(object):
             if not os.path.exists(fix_path):
                 os.makedirs(fix_path)
             
-            extract_path = self._config.EXTRACT["file_path"]
-            if not os.path.exists(extract_path):
-                os.makedirs(extract_path)
+            entropy_path = self._config.ENTROPY["file_path"]
+            if not os.path.exists(entropy_path):
+                os.makedirs(entropy_path)
+
+            distribution_path = self._config.DISTRIBUTION["file_path"]
+            if not os.path.exists(distribution_path):
+                os.makedirs(distribution_path)    
+
+            data_path = self._config.DATA["file_path"]
+            if not os.path.exists(data_path):
+                os.makedirs(data_path)        
+
+            model_path = self._config.MODEL["file_path"]
+            if not os.path.exists(model_path):
+                os.makedirs(model_path)       
+            
+            evaluate_path = self._config.EVALUATE["file_path"]
+            if not os.path.exists(evaluate_path):
+                os.makedirs(evaluate_path)   
