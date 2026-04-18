@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# coding=utf-8
+"""
+@Description   
+@Author        lazypanda666
+@Date          2026-04-15 21:46:35
+"""
 import os
 import numpy as np
 import torch
@@ -236,7 +243,7 @@ def train(seed: int = cfg.COMMON["seed"]) -> None:
 
     # 保存模型
     os.makedirs(cfg.MODEL["file_path"], exist_ok=True)
-    save_path = os.path.join(cfg.MODEL["file_path"], "MSREGRU.pth")
+    save_path = os.path.join(cfg.MODEL["file_path"], "ecgru.pth")
     torch.save(model.state_dict(), save_path)
 
     print(f"Model saved to: {save_path}")
