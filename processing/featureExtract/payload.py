@@ -40,7 +40,7 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
 
     # 按位读取整个pcap包
     while ptr + 16 <= pcap_len:
-        # =============== Header解析 ===============
+        # Header解析
         # 帧在文件中的实际长度
         incl_len = struct.unpack(fmt_I, data[ptr + 8:ptr + 12])[0]
         # 移动指针到frame开始位置
@@ -54,7 +54,7 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
         # 指针跳过frame
         ptr += incl_len
 
-        # =============== 根据链路层解析模式，决定如何解析L2层 ===============
+        # 根据链路层解析模式，决定如何解析L2层
         effective_mode  = l2_mode
         if effective_mode == "pcap_header":
             # 以太网
@@ -67,7 +67,7 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
             else:
                 effective_mode = "auto"
 
-        # ======= Ethernet解析 =======
+        # Ethernet解析
         if effective_mode == "ethernet":
             # 帧太短，无法解析MAC头，跳过
             if len(frame) < 14:
@@ -79,11 +79,11 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
                 continue
             # IPv4头起始偏移14字节
             l3_offset = 14
-        # ======= Raw Ipv4解析 =======
+        # Raw Ipv4解析
         elif l2_mode == "ipv4":
             # L3层偏移从0开始
             l3_offset = 0
-        # ======= 自动解析解析 =======
+        # 自动解析解析
         elif l2_mode == "auto":
             # 自动检测IPv4头偏移
             detected = common.detectL3Offset(frame)
@@ -95,9 +95,9 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
         else:
             raise ValueError("未知的解析类型")
 
-        # =============== IPv4解析 ===============
+        # IPv4解析
 
-        # ======= IPv4头 =======
+        # IPv4头
         if len(frame) < l3_offset + 20:
             continue
         ip_hdr = frame[l3_offset:]
@@ -110,7 +110,7 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
         if len(ip_hdr) < ip_header_len:
             continue
 
-        # ======= IPv4 内容 =======
+        # IPv4 内容
         # 总长度
         total_len = struct.unpack("!H", ip_hdr[2:4])[0]
         # L4协议号
@@ -121,7 +121,7 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
         if len(frame) < l4_offset:
             continue
         
-        # =============== TCP解析 ===============
+        # TCP解析
         if protocol == 6:
             # TCP头检查
             if len(frame) < l4_offset + 20:
@@ -151,7 +151,7 @@ def _parsePcapPktsPayload(pcap_path: str, l2_mode: str) -> Generator:
             payload = frame[payload_offset: payload_offset + payload_len]
             yield list(payload)
 
-        # =============== UDP解析 ===============
+        # UDP解析
         if protocol == 17:
             # UDP头检查
             if len(frame) < l4_offset + 8:
@@ -179,7 +179,7 @@ def extractPcapPktsPayload(input_dir: str = cfg.ANONYMOUS["file_path"],
                        model_name: str = cfg.MODEL["name"],
                        output_dir: str = cfg.EXTRACT["file_path"]) -> None:
     """
-    @description 对PCAP文件进行数据包payload提取，用于对比实验（Transformer模型）
+    @description 对PCAP文件进行数据包payload提取，用于对比实验
     @param {str} input_dir PCAP文件夹路径
     @param {str} sample_way 采样方式
     @param {str} l2_mode 链路层解析模式

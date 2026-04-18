@@ -46,8 +46,10 @@ def sample(pcap_dir: str = cfg.DATASET["pcap_dir"],
     # 遍历所有pcap文件
     for filename in os.listdir(pcap_dir):
         print(f"正在处理{filename}")
+        
         # 分割文件名和后缀
         name, ext = os.path.splitext(filename)
+        
         # 拼接当前pcap文件路径
         pcap_path = pcap_dir + filename
 
