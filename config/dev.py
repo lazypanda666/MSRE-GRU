@@ -74,7 +74,7 @@ class DevConfig(object):
 
         self.ENTROPY = {
             "alphas": [1,2,3,4,5,6,7,8,9,10],
-            "num_bins": 10,
+            "num_bins": 50,
             "alpha_weighting": True,
             # 相关文件保存路径
             "file_path": tmp_path + "/entropy/",
@@ -100,10 +100,11 @@ class DevConfig(object):
         }
 
         self.MODEL = {
-            "batch_size": 64,
-            "epochs": 30,
-            "lr": 1e-3,
-            "seq_len": 10,   # 时间窗口长度 T
+            "batch_size": 8,
+            "epochs": 20,
+            "lr": 0.005,
+            # 时间窗口长度 T
+            "seq_len": 10,   
             "hidden_dim": 128,
             # 相关文件保存路径
             "file_path": tmp_path + "/model/",

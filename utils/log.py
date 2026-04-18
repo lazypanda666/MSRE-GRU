@@ -34,7 +34,8 @@ class Logger:
         # 设置格式
         console_handler.setFormatter(formatter)
         # 将处理器添加到记录器中
-        self.logger.addHandler(console_handler)
+        if not self.logger.handlers:
+            self.logger.addHandler(console_handler)
 
         # 写入到文件
         if save_path is not None:
@@ -50,7 +51,8 @@ class Logger:
             # 设置格式
             file_handler.setFormatter(formatter)
             # 将处理器添加到记录器中
-            self.logger.addHandler(file_handler)
+            if not self.logger.handlers:
+                self.logger.addHandler(file_handler)
 
     def debug(self, message: str):
         """
