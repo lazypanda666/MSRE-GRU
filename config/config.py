@@ -73,3 +73,41 @@ class Config(object):
             evaluate_path = self._config.EVALUATE["file_path"]
             if not os.path.exists(evaluate_path):
                 os.makedirs(evaluate_path)   
+
+        # 采样实验配置
+        if self.main_tmp_path == "ablation_experiment": 
+            sample_path = self._config.SAMPLE["file_path"]
+            if not os.path.exists(sample_path):
+                os.makedirs(sample_path)
+            
+            window_path = self._config.WINDOW["file_path"]
+            if not os.path.exists(window_path):
+                os.makedirs(window_path)
+
+            anonymous_path = self._config.ANONYMOUS["file_path"]
+            if not os.path.exists(anonymous_path):
+                os.makedirs(anonymous_path)
+
+            fix_path = self._config.FIXED_LENGTH["file_path"]
+            if not os.path.exists(fix_path):
+                os.makedirs(fix_path)
+            
+            entropy_path = self._config.ENTROPY["file_path"]
+            if not os.path.exists(entropy_path):
+                os.makedirs(entropy_path)
+
+            distribution_path = self._config.DISTRIBUTION["file_path"]
+            if not os.path.exists(distribution_path):
+                os.makedirs(distribution_path)    
+
+            data_path = self._config.DATA["file_path"]
+            if not os.path.exists(data_path):
+                os.makedirs(data_path)        
+
+            model_path = self._config.MODEL["file_path"]
+            if not os.path.exists(model_path):
+                os.makedirs(model_path)       
+            
+            evaluate_path = self._config.EVALUATE["file_path"]
+            if not os.path.exists(evaluate_path):
+                os.makedirs(evaluate_path)   

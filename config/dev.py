@@ -94,7 +94,7 @@ class DevConfig(object):
 
         self.EVALUATE = {
             # 结果小数位数
-            "decimal_places": 2,
+            "decimal_places": 4,
             # 相关文件保存路径
             "file_path": tmp_path + "/evaluate/",
         }

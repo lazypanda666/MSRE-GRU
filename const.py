@@ -24,6 +24,11 @@ if match:
 if name == "our":
     # 主程序临时目录
     main_tmp_path = "our_experiment"
+
+# 消融实验配置
+if name == "ablation":
+    # 主程序临时目录
+    main_tmp_path = "ablation_experiment"
     
 
 # 通用配置
@@ -36,9 +41,9 @@ env = "dev"
 
 # 数据集配置
 # USTC-TFC2016数据集
-# dataset = "USTC-TFC2016"
+dataset = "USTC-TFC2016"
 # UNSW-NB15数据集
-dataset = "UNSW-NB15"
+# dataset = "UNSW-NB15"
 
 
 cfg = Config(env, main_tmp_path, dataset).config
