@@ -8,10 +8,10 @@
 
 import sample.sampling as sample
 import processing.dataProcessing as processing
-import model.window_entropy as window
-import model.window_distribution_state_of_Renyi_entropy as distribution
-import processing.split_the_dataset as split
-import model.GRU as gru
+import model.windowEntropy as window
+import model.entropyState as distribution
+import processing.splitDataset as split
+import model.gru as gru
 import evaluate.evaluate as evaluate
 
 from const import cfg
@@ -30,10 +30,6 @@ if __name__ == "__main__":
     processing.truncatePcapPackets()
     print("--------------------------------------------")
 
-    print(f"正在窗口化")
-    window.extractWindowFeatures()
-    print("--------------------------------------------")
-
     print(f"正在窗口化与雷尼熵计算")
     window.extractWindowFeaturesAndEntropy()
     print("--------------------------------------------")
@@ -42,9 +38,8 @@ if __name__ == "__main__":
     distribution.buildEntropyStateVector()
     print("--------------------------------------------")
 
-    划分数据集
     print(f"正在划分数据集")
-    split.SplitTheDataset()
+    split.splitTheDataset()
     print("--------------------------------------------")
 
     print(f"正在训练模型")
