@@ -1,4 +1,4 @@
-# EC-RE-GRU
+# MSRE-GRU
 
 
 ## git 提交规范
